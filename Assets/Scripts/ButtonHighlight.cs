@@ -8,6 +8,8 @@ public class ButtonHighlight : MonoBehaviour
     [SerializeField] Button[] buttons;
     [SerializeField] Sprite buttonImage;
     [SerializeField] Sprite selectedImage;
+    int counter = 0;
+    int oldCounter = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,8 +20,24 @@ public class ButtonHighlight : MonoBehaviour
     void Update()
     {
         HighlightButton();
+        Debug.Log(counter);
     }
     
+    public void CountPressedButtons()
+    {
+        if(counter == 2)
+            Debug.Log("WIECEJ NIZ 2");
+        else
+        {
+            foreach(Button button in buttons)
+            {
+                if(button.gameObject.GetComponent<ButtonHandler>().isButtonClicked == true && counter <= 2)
+                    counter++;
+            }
+        }
+
+        
+    }
     public void HighlightButton()
     {
         foreach(Button button in buttons)
@@ -27,12 +45,13 @@ public class ButtonHighlight : MonoBehaviour
             if(button.gameObject.GetComponent<ButtonHandler>().isButtonClicked == true)
             {
                 button.image.sprite = selectedImage;
+            
             }
             else
             {
                 button.image.sprite = buttonImage;
+
             }
-            Debug.Log(button.name + " " + button.gameObject.GetComponent<ButtonHandler>().isButtonClicked);
         }
     }
 }

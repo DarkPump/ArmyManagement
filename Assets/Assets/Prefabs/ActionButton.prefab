@@ -282,3 +282,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fa467293ab69074795e1fb4a2f2b13c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isButtonClicked: 1
