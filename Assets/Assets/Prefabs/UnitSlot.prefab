@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3291349759416741115}
   - component: {fileID: 4252539796891443716}
   - component: {fileID: 6218676254432313052}
+  - component: {fileID: 1366271764444345699}
   m_Layer: 5
   m_Name: UnitSlot
   m_TagString: Untagged
@@ -121,7 +122,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4252539796891443716}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1366271764444345699}
+        m_TargetAssemblyTypeName: ButtonHandler, Assembly-CSharp
+        m_MethodName: HighlightButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1366271764444345699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 742540731943181063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fa467293ab69074795e1fb4a2f2b13c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isButtonClicked: 0
 --- !u!1 &7346505944302545795
 GameObject:
   m_ObjectHideFlags: 0
