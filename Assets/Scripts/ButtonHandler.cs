@@ -5,26 +5,22 @@ using UnityEngine.UI;
 
 public class ButtonHandler : MonoBehaviour
 {
+    int tempCounter = 0;
     public bool isButtonClicked = false;
     [SerializeField] public GameObject canvas;
+    [SerializeField] ButtonHighlight buttonHighlight;
+    public UnitBase unit;
     public void HighlightButton()
     {
-        if(canvas.gameObject.GetComponent<ButtonHighlight>().counter < 2)
+        if(canvas.gameObject.GetComponent<ButtonHighlight>().currentButton == null && isButtonClicked == false)
             isButtonClicked = true;
+        else if(canvas.gameObject.GetComponent<ButtonHighlight>().lastButton == null && isButtonClicked == false)
+            isButtonClicked = true;
+            
         else
             isButtonClicked = false;
     }
-
-    public void CountButtons()
-    {
-        if(canvas.gameObject.GetComponent<ButtonHighlight>().counter < 2 && isButtonClicked == true)
-            canvas.gameObject.GetComponent<ButtonHighlight>().counter++;
-        else if(canvas.gameObject.GetComponent<ButtonHighlight>().counter > 0 && isButtonClicked == false)
-            if(canvas.gameObject.GetComponent<ButtonHighlight>().counter == 2)
-                Debug.Log("Max zaznaczenia!");
-            else
-                canvas.gameObject.GetComponent<ButtonHighlight>().counter--;
-            
-
-    }
 }
+
+
+//FIRST BUTTON PRESSED + SECOND BUTTON PRESSED + SPRAWDZANIE CZY MA PRZYPISANEGO BUTTONA DO TEJ ZMIENNEJ + JAK TAK TO ZAMIEŃ OSTATNI BUTTON NA NOWY BUTTON
