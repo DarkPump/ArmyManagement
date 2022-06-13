@@ -32,11 +32,16 @@ public class FunctionButtonsScript : MonoBehaviour
     public void Swap()
     {
         UnitBase tmpUnit;
-        if((buttonHighlight.currentButtonUnit != null && buttonHighlight.lastButtonUnit != null))
+        Sprite tmpSprite;
+        if((buttonHighlight.currentButtonUnit != null || buttonHighlight.lastButtonUnit != null))
         {
-            tmpUnit = buttonHighlight.currentButtonUnit;
-            buttonHighlight.currentButtonUnit = buttonHighlight.lastButtonUnit;
-            buttonHighlight.lastButtonUnit = tmpUnit;
+            tmpUnit = buttonHighlight.currentButton.gameObject.GetComponent<ButtonHandler>().unit;
+            buttonHighlight.currentButton.gameObject.GetComponent<ButtonHandler>().unit = buttonHighlight.lastButton.gameObject.GetComponent<ButtonHandler>().unit;
+            buttonHighlight.lastButton.gameObject.GetComponent<ButtonHandler>().unit = tmpUnit;
+
+            tmpSprite = buttonHighlight.currentButton.gameObject.GetComponent<Image>().sprite;
+            buttonHighlight.currentButton.gameObject.GetComponent<Image>().sprite = buttonHighlight.lastButton.gameObject.GetComponent<Image>().sprite;
+            buttonHighlight.lastButton.gameObject.GetComponent<Image>().sprite = tmpSprite;
         }
 
     }
@@ -86,5 +91,11 @@ public class FunctionButtonsScript : MonoBehaviour
             buttonHighlight.currentButtonUnit = unitx2;
             buttonHighlight.currentButton.gameObject.GetComponent<Image>().sprite = unitx2.unitSprite;
         }
+    }
+
+    public void UpdateUnitInfo()
+    {
+        buttonHighlight.currentButton.gameObject.GetComponent<Image>().sprite = buttonHighlight.currentButtonUnit.unitSprite;
+        buttonHighlight.lastButton.gameObject.GetComponent<Image>().sprite = buttonHighlight.lastButtonUnit.unitSprite;
     }
 }
