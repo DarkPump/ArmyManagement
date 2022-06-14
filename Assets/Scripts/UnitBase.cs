@@ -7,11 +7,7 @@ public class UnitBase : ScriptableObject
 {
     public string unitName;
     public Sprite unitSprite;
-    public UnitType unitType;
+    [Min(1)]
+    public int unitSize;
 }
 
-public enum UnitType
-{
-    oneSpace,
-    twoSpaces
-}

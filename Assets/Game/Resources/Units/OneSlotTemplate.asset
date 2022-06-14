@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: OneSlotTemplate
   unitSprite: {fileID: 21300000, guid: f99c7e6b32a77404f857a07672e0e597, type: 3}
-  unitType: 0
+  unitSize: 1

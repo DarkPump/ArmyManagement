@@ -5,18 +5,19 @@ using UnityEngine.UI;
 
 public class ButtonHighlight : MonoBehaviour
 {
-    [SerializeField] Button[] buttons;
-    public GameObject lastButton;
-    public GameObject currentButton;
-    public GameObject lastButtonNext;
+    public ButtonHandler[] buttonHandlersCollection;
+    [SerializeField] GameObject topUnitSlotsContainer;
+    [SerializeField] GameObject bottomUnitSlotsContainer;
+
+    public ButtonHandler lastButton;
+    public ButtonHandler currentButton;
     public UnitBase lastButtonUnit = null;
-    public GameObject currentButtonNext;
     public UnitBase currentButtonUnit = null;
     
     // Start is called before the first frame update
     void Start()
     {
-
+        ButtonInitialize();
     }
 
     // Update is called once per frame
@@ -25,27 +26,42 @@ public class ButtonHighlight : MonoBehaviour
         HighlightButton();
     }
 
-    public void checkButtons(Button button)
+    public void ButtonInitialize()
     {
-        Transform nextChild = this.NextChild();
-        if(currentButton == null && button.gameObject.GetComponent<ButtonHandler>().isButtonClicked == true)
+        for(int i = 0; i < buttonHandlersCollection.Length; i++)
         {
-            currentButtonUnit =  button.gameObject.GetComponent<ButtonHandler>().unit;
-            currentButton = button.gameObject;
-            if(nextChild == null)
-                Debug.LogFormat("{0} is the last sequential child or didn't have a parent!", this.name);
-            else
-                Debug.LogFormat ("{0} has a next sequential child named {1}!", this.name, nextChild.name);
+            buttonHandlersCollection[i].AssignButtonIndex(i);
         }
-        else if(currentButton != null && button.gameObject.GetComponent<ButtonHandler>().isButtonClicked == true)
+    }
+
+    public void CheckButtons(ButtonHandler buttonHandler)
+    {
+        if(currentButton == null && buttonHandler.isButtonClicked == true)
+        {
+            currentButtonUnit =  buttonHandler.unit;
+            currentButton = buttonHandler;
+        }
+        else if(currentButton != null && buttonHandler.isButtonClicked == true)
         {
             lastButton = currentButton;
-            currentButton = button.gameObject;
+            currentButton = buttonHandler;
 
             lastButtonUnit = currentButtonUnit;
-            currentButtonUnit =  button.gameObject.GetComponent<ButtonHandler>().unit;
+            currentButtonUnit =  buttonHandler.unit;
         }
-        else if(currentButton == button.gameObject && button.gameObject.GetComponent<ButtonHandler>().isButtonClicked == false)
+        else if((currentButton != null && lastButton != null) && (buttonHandler != currentButton && buttonHandler != lastButton))
+        {
+            lastButton.isButtonClicked = false;
+            buttonHandler.isButtonClicked = true;
+
+            lastButton = currentButton;
+            currentButton = buttonHandler;
+
+            lastButtonUnit = currentButtonUnit;
+            currentButtonUnit = buttonHandler.unit;
+            
+        }
+        else if(currentButton == buttonHandler && buttonHandler.isButtonClicked == false)
         {
             currentButton = lastButton;
             lastButton = null;
@@ -53,7 +69,7 @@ public class ButtonHighlight : MonoBehaviour
             currentButtonUnit = lastButtonUnit;
             lastButtonUnit = null;
         }
-        else if(lastButton == button.gameObject && button.gameObject.GetComponent<ButtonHandler>().isButtonClicked == false)
+        else if(lastButton == buttonHandler && buttonHandler.isButtonClicked == false)
         {
             lastButton = null;
             lastButtonUnit = null;
@@ -61,23 +77,16 @@ public class ButtonHighlight : MonoBehaviour
     }
     public void HighlightButton()
     {
-        foreach(Button button in buttons)
+        for(int i = 0; i < buttonHandlersCollection.Length; i++)
         {
-            if(button.gameObject.GetComponent<ButtonHandler>().isButtonClicked == true)
-                button.transform.GetChild(0).gameObject.SetActive(true);
+            if(buttonHandlersCollection[i].isButtonClicked == true)
+            {
+                buttonHandlersCollection[i].highlighter.SetActive(true);
+            }
             else
-                button.transform.GetChild(0).gameObject.SetActive(false);
+            {
+                buttonHandlersCollection[i].highlighter.SetActive(false);
+            }
         }
-    }
-
-    private Transform NextChild()
-    {
-        int thisIndex = this.transform.GetSiblingIndex();
-        if(this.transform.parent == null)
-            return null;
-        if(this.transform.parent.childCount <= thisIndex + 1)
-            return null;
-
-        return this.transform.parent.GetChild(thisIndex + 1);
     }
 }
