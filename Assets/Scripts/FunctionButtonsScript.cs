@@ -18,6 +18,7 @@ public class FunctionButtonsScript : MonoBehaviour
     [SerializeField] Sprite baseSprite;
     public UnitBase unitx1;
     public UnitBase unitx2;
+    public 
     int unitIndex;
 
     private void Awake()
@@ -35,7 +36,7 @@ public class FunctionButtonsScript : MonoBehaviour
         //Swap button
         if((buttonHighlight.currentButtonUnit != null || buttonHighlight.lastButtonUnit != null) && (buttonHighlight.currentButton != null && buttonHighlight.lastButton != null))
         {
-            swapButton.gameObject.GetComponent<Button>().enabled = true;
+            swapButton.enabled = true;
             swapButton.gameObject.GetComponent<Image>().color = Color.black;
         }
         else
@@ -106,7 +107,8 @@ public class FunctionButtonsScript : MonoBehaviour
         }
 
     }
-
+    //Granica 1, a przed nim 2. Z treści zadania
+    //identyfikatory kazdego slota
     public void Swap()
     {
         UnitBase tmpUnit;
@@ -153,60 +155,95 @@ public class FunctionButtonsScript : MonoBehaviour
         }
     }
 
-    public void Addx1()
+    // public void Addx1()
+    // {
+    //     ButtonHandler cachedCurrentButtonHandler = buttonHighlight.currentButton;
+    //     ButtonHandler cachedLastButtonHandler = buttonHighlight.lastButton;
+
+    //     if(cachedCurrentButtonHandler != null && buttonHighlight.lastButton != null)
+    //     {
+    //         cachedCurrentButtonHandler.unit = unitx1;
+    //         buttonHighlight.currentButtonUnit = unitx1;
+            
+    //         cachedLastButtonHandler.unit = unitx1;
+    //         buttonHighlight.lastButtonUnit = unitx1;
+
+    //         cachedCurrentButtonHandler.currentImage.sprite = unitx1.unitSprite;
+    //         cachedLastButtonHandler.currentImage.sprite = unitx1.unitSprite;
+    //     }
+    //     else if(buttonHighlight.currentButton != null || buttonHighlight.lastButton != null)
+    //     {
+    //         cachedCurrentButtonHandler.unit = unitx1;
+    //         buttonHighlight.currentButtonUnit = unitx1;
+    //         cachedCurrentButtonHandler.currentImage.sprite = unitx1.unitSprite;
+    //     }
+    // }
+
+    public void Addx1(UnitBase unit)
     {
         ButtonHandler cachedCurrentButtonHandler = buttonHighlight.currentButton;
         ButtonHandler cachedLastButtonHandler = buttonHighlight.lastButton;
 
-        if(cachedCurrentButtonHandler != null && buttonHighlight.lastButton != null)
-        {
-            cachedCurrentButtonHandler.unit = unitx1;
-            buttonHighlight.currentButtonUnit = unitx1;
-            
-            cachedLastButtonHandler.unit = unitx1;
-            buttonHighlight.lastButtonUnit = unitx1;
+        cachedCurrentButtonHandler?.AddUnit(unit);
+        cachedLastButtonHandler?.AddUnit(unit);
 
-            cachedCurrentButtonHandler.currentImage.sprite = unitx1.unitSprite;
-            cachedLastButtonHandler.currentImage.sprite = unitx1.unitSprite;
-        }
-        else if(buttonHighlight.currentButton != null || buttonHighlight.lastButton != null)
-        {
-            cachedCurrentButtonHandler.unit = unitx1;
-            buttonHighlight.currentButtonUnit = unitx1;
-            cachedCurrentButtonHandler.currentImage.sprite = unitx1.unitSprite;
-        }
+    }
+    // public void Addx2()
+    // {
+    //     ButtonHandler cachedCurrentButtonHandler = buttonHighlight.currentButton;
+    //     ButtonHandler cachedLastButtonHandler = buttonHighlight.lastButton;
+    //     ButtonHandler cachedNextButtonHandler = buttonHighlight.buttonHandlersCollection[buttonHighlight.currentButton.GetCurrentButtonIndexValue() + 1];
+
+    //     if(cachedCurrentButtonHandler != null && buttonHighlight.lastButton != null)
+    //     {
+    //         cachedCurrentButtonHandler.unit = unitx2;
+    //         buttonHighlight.currentButtonUnit = unitx2;
+
+    //         cachedCurrentButtonHandler.unit = unitx2;
+    //         buttonHighlight.lastButtonUnit = unitx2;
+
+    //         cachedCurrentButtonHandler.currentImage.sprite = unitx2.unitSprite;
+    //         cachedLastButtonHandler.currentImage.sprite = unitx2.unitSprite;
+
+    //         cachedNextButtonHandler.unit = unitx2;
+    //         cachedNextButtonHandler.currentImage.sprite = unitx2.unitSprite;
+    //         cachedNextButtonHandler.currentButton.interactable = false;
+    //     }
+    //     else if(buttonHighlight.currentButton != null || buttonHighlight.lastButton != null)
+    //     {
+    //         cachedCurrentButtonHandler.unit = unitx2;
+    //         buttonHighlight.currentButtonUnit = unitx2;
+    //         cachedCurrentButtonHandler.currentImage.sprite = unitx2.unitSprite;
+
+    //         cachedNextButtonHandler.unit = unitx2;
+    //         cachedNextButtonHandler.currentImage.sprite = unitx2.unitSprite;
+    //         cachedNextButtonHandler.currentButton.interactable = false;
+    //     }
+    // }
+
+    public void Addx2(UnitBase unit)
+    {
+        ButtonHandler cachedCurrentButtonHandler = buttonHighlight.currentButton;
+        ButtonHandler cachedLastButtonHandler = buttonHighlight.lastButton;
+
+        cachedCurrentButtonHandler?.AddUnit(unit);
+        cachedLastButtonHandler?.AddUnit(unit);
+        TryDisableNextUnitSlot(cachedCurrentButtonHandler);
+        TryDisableNextUnitSlot(cachedLastButtonHandler);
     }
 
-    public void Addx2()
+    public void TryDisableNextUnitSlot(ButtonHandler buttonHandler)
     {
-        ButtonHandler cachedCurrentButtonHandler = buttonHighlight.currentButton;
-        ButtonHandler cachedLastButtonHandler = buttonHighlight.lastButton;
-        ButtonHandler cachedNextButtonHandler = buttonHighlight.buttonHandlersCollection[buttonHighlight.currentButton.GetCurrentButtonIndexValue() + 1];
+        ButtonHandler cachedNextButtonHandler;
 
-        if(cachedCurrentButtonHandler != null && buttonHighlight.lastButton != null)
+        if(buttonHandler?.unit?.unitSize > 1)
         {
-            cachedCurrentButtonHandler.unit = unitx2;
-            buttonHighlight.currentButtonUnit = unitx2;
-
-            cachedCurrentButtonHandler.unit = unitx2;
-            buttonHighlight.lastButtonUnit = unitx2;
-
-            cachedCurrentButtonHandler.currentImage.sprite = unitx2.unitSprite;
-            cachedLastButtonHandler.currentImage.sprite = unitx2.unitSprite;
-
-            cachedNextButtonHandler.unit = unitx2;
-            cachedNextButtonHandler.currentImage.sprite = unitx2.unitSprite;
-            cachedNextButtonHandler.currentButton.interactable = false;
-        }
-        else if(buttonHighlight.currentButton != null || buttonHighlight.lastButton != null)
-        {
-            cachedCurrentButtonHandler.unit = unitx2;
-            buttonHighlight.currentButtonUnit = unitx2;
-            cachedCurrentButtonHandler.currentImage.sprite = unitx2.unitSprite;
-
-            cachedNextButtonHandler.unit = unitx2;
-            cachedNextButtonHandler.currentImage.sprite = unitx2.unitSprite;
-            cachedNextButtonHandler.currentButton.interactable = false;
+            for(int i = 1 ; i < buttonHandler.unit.unitSize; i++)
+            {
+                cachedNextButtonHandler = buttonHighlight.buttonHandlersCollection[buttonHandler.GetCurrentButtonIndexValue() + i];
+                cachedNextButtonHandler.currentButton.interactable = false;
+                cachedNextButtonHandler.AddUnit(buttonHandler.unit);
+            }
         }
     }
 }

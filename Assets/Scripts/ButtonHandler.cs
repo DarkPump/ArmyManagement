@@ -14,6 +14,7 @@ public class ButtonHandler : MonoBehaviour
     public GameObject highlighter;
     public Image currentImage;
     public Sprite baseSprite;
+    public Sprite[] sprites;
 
 
     public void HighlightButton()
@@ -43,6 +44,14 @@ public class ButtonHandler : MonoBehaviour
 
         currentImage.sprite = baseSprite;
         currentImage.sprite = baseSprite;
+    }
+    // ZROBIĆ TO! Przepisać tak ładnie jak dilit c:
+    public void AddUnit(UnitBase unitBase)
+    {
+       unit = unitBase;
+       unit = unitBase;
+       currentImage.sprite = unitBase.unitSprite;
+       currentImage.sprite = unitBase.unitSprite;
     }
 }
 
