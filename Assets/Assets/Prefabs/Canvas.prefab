@@ -203,8 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonHandlersCollection: []
-  topUnitSlotsContainer: {fileID: 0}
-  bottomUnitSlotsContainer: {fileID: 0}
+  cachedButtonCollection: []
   lastButton: {fileID: 0}
   currentButton: {fileID: 0}
   lastButtonUnit: {fileID: 0}

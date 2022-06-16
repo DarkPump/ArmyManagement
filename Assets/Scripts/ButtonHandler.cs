@@ -14,14 +14,14 @@ public class ButtonHandler : MonoBehaviour
     public GameObject highlighter;
     public Image currentImage;
     public Sprite baseSprite;
-    public Sprite[] sprites;
+    public int unitSlotID;
 
 
     public void HighlightButton()
     {
-        if(canvas.gameObject.GetComponent<ButtonHighlight>().currentButton == null && isButtonClicked == false)
+        if(buttonHighlight.currentButton == null && isButtonClicked == false)
             isButtonClicked = true;
-        else if(canvas.gameObject.GetComponent<ButtonHighlight>().lastButton == null && isButtonClicked == false)
+        else if(buttonHighlight.lastButton == null && isButtonClicked == false)
             isButtonClicked = true;
         else
             isButtonClicked = false;
@@ -37,23 +37,19 @@ public class ButtonHandler : MonoBehaviour
         return buttonIndex;
     }
 
+    public int GetCurrentUnitSlotID()
+    {
+        return unitSlotID;
+    }
+
     public void Delete()
     {
         unit = null;
-        unit = null;
-
-        currentImage.sprite = baseSprite;
         currentImage.sprite = baseSprite;
     }
-    // ZROBIĆ TO! Przepisać tak ładnie jak dilit c:
     public void AddUnit(UnitBase unitBase)
     {
        unit = unitBase;
-       unit = unitBase;
-       currentImage.sprite = unitBase.unitSprite;
        currentImage.sprite = unitBase.unitSprite;
     }
 }
-
-
-//FIRST BUTTON PRESSED + SECOND BUTTON PRESSED + SPRAWDZANIE CZY MA PRZYPISANEGO BUTTONA DO TEJ ZMIENNEJ + JAK TAK TO ZAMIEŃ OSTATNI BUTTON NA NOWY BUTTON
